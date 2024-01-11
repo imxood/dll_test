@@ -20,6 +20,10 @@ cargo build --example dll_test
 
 ![](images/Readme/2024-01-11-23-11-26.png)
 
+可以确定, 执行了 动态库的释放:
+
+![](images/Readme/2024-01-11-23-18-07.png)
+
 ## 使用 drmemory 验证 测试程序中的 内存泄露问题
 
 drmemory.exe -ignore_kernel -batch -exit_code_if_errors 0 -- .\target\debug\examples\dll_test.exe
