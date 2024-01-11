@@ -18,6 +18,7 @@ cargo build --release
 
 cargo build --example dll_test
 
+![](images/Readme/2024-01-11-23-11-26.png)
 
 ## 使用 drmemory 验证 测试程序中的 内存泄露问题
 
