@@ -16,7 +16,7 @@ fn load_dll() {
             init_user();
         }
 
-        println!("1");
+        println!("{i}");
         lib.close().unwrap();
     }
 }
