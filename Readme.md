@@ -22,7 +22,9 @@ cargo build --example dll_test
 
 可以确定, 执行了 动态库的释放:
 
-![](images/Readme/2024-01-11-23-18-07.png)
+![](images/Readme/2024-01-11-23-19-25.png)
+
+![](images/Readme/2024-01-11-23-19-53.png)
 
 ## 使用 drmemory 验证 测试程序中的 内存泄露问题
 
