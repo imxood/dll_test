@@ -7,7 +7,7 @@
 这是一个简单的动态库, 只有一个函数:
 
 ```sh
-cargo build --release
+cargo build
 ```
 
 ![](images/Readme/2024-01-11-23-01-50.png)
@@ -28,7 +28,7 @@ cargo build --example dll_test
 
 ## 使用 drmemory 验证 测试程序中的 内存泄露问题
 
-drmemory.exe -ignore_kernel -batch -exit_code_if_errors 0 -- .\target\debug\examples\dll_test.exe
+drmemory.exe -logdir ./logs -ignore_kernel -batch -exit_code_if_errors 0 -- .\target\debug\examples\dll_test.exe
 
 tips:
 (1) 我这里运行时, 会有 2 个错误弹框, 忽略.
@@ -43,3 +43,17 @@ tips:
 测试结果的文件中, 可以看到, 循环10次的话, 刚好 出现内存泄露 10次:
 
 ![](images/Readme/2024-01-11-23-08-54.png)
+
+## 命令
+
+```
+cargo build; cargo build --example dll_test
+
+drmemory.exe -logdir ./logs -ignore_kernel -batch -exit_code_if_errors 0 -- .\target\debug\examples\dll_test.exe
+```
+
+## 总结
+
+(1) 动态库被卸载后, OnceLock 会导致内存未被释放, 具体原因, 只能以后 去研究 rust源码. 可以根据应用的场景, 选择不同的方案
+
+(2) 通过 drmemory 工具, 可以很好的分析到 泄露的内存 的代码, DLL一般都先做测试, 分析过没有问题, 才算 Safe
