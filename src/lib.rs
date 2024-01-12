@@ -47,7 +47,7 @@ pub extern "C" fn init_profile() -> *mut c_void {
 
 static PROFILE0: OnceLock<Profile> = OnceLock::new();
 
-/// 测试 OnceLock
+/// 测试 OnceLock, 这里存在内存泄露
 ///
 #[no_mangle]
 pub extern "C" fn test_oncelock() {
@@ -75,7 +75,7 @@ pub extern "C" fn static_mut_deinit() {
     };
 }
 
-/// 简单的 println!() 会导致 内存泄露, 原因未知
+/// 简单的 println!() 会导致 内存泄露 / 最后的分析: 内部的stdout 使用了 OnceLock, OnceLock初始化时导致内存泄漏
 ///
 #[no_mangle]
 pub extern "C" fn test_println() {
@@ -139,8 +139,8 @@ impl log::Log for MyLogger {
     fn flush(&self) {}
 }
 
-/// Box::new产生的堆内存，在 log crate 中 被leak, 导致内存泄露,
-/// 但如果 MyLogger 是没有成员, 似乎也不会内存泄露?, 那Box的内存在哪呢?
+/// Box::new产生的堆内存，在 log crate 中 被leak, 没有办法释放该内存, 导致内存泄露,
+/// 但如果 这里的 MyLogger 没有成员, 工具就没有检查到内存泄露, 那此时的 Box 的内存在哪呢?
 ///
 /// 这里使用 static 就不会有泄露风险
 ///

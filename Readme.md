@@ -1,6 +1,6 @@
-# Issue: 连续的 加载/运行/卸载 DLL, 内存不断增加 (Windows 环境下)
+# Issue: 连续的 加载/运行/卸载 DLL, 存在内存泄露 (Windows 环境下)
 
-一检查 竟然是 println 导致了内存泄露? 最后, 分析确定: 是 OnceLock 导致的!!!
+一检查 竟然是 println 导致了内存泄露? 最后, 分析确定: stdou 使用了 OnceLock, 是 OnceLock 导致的!!!
 
 ## 编译动态库
 
