@@ -15,7 +15,11 @@ fn load_dll() {
         let lib = unsafe { Library::new(r"target\debug\dll_test.dll").unwrap() };
 
         unsafe {
-            // 下面的大括号只是为了直观
+            /*
+               下面的大括号只是为了直观
+
+               可以注释 或 取消注释 下面的代码, 运行不同的测试
+            */
 
             // 测试 println
             {
@@ -91,7 +95,11 @@ fn load_dll() {
             //     println!("tokio_deinit done");
             // }
 
-            /* tokio 运行时, 使用了 static mut, 虽然不会内存泄露, 但是 需要手动释放 */
+            /*
+               tokio 运行时, 使用了 static mut, 虽然不会内存泄露, 但是 需要手动释放
+
+               还存在内存泄露, 来自于 tokio的内部环境初始化
+            */
 
             {
                 let now = Instant::now();
