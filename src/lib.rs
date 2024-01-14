@@ -235,3 +235,11 @@ pub extern "C" fn tokio_deinit0() {
         runtime.shutdown_timeout(Duration::from_millis(1000));
     }
 }
+
+use static_init::dynamic;
+
+#[dynamic(10)]
+static A: Vec<i32> = vec![1,2,3];
+
+#[dynamic(0,drop)]
+static mut B: Vec<i32> = unsafe {A.clone()};
